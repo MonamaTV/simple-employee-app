@@ -5,7 +5,9 @@ import Select from "./Select";
 
 type FormTypes = {
   handleFormSubmission: (event: React.FormEvent<HTMLFormElement>) => void;
-  handleUserInput: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleUserInput: (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => void;
 };
 
 const Form = ({ handleFormSubmission, handleUserInput }: FormTypes) => {
@@ -31,7 +33,7 @@ const Form = ({ handleFormSubmission, handleUserInput }: FormTypes) => {
         placeholder="Employee gender"
         name="gender"
       /> */}
-      <Select />
+      <Select name="gender" handleUserInput={handleUserInput} />
       <Button />
     </form>
   );

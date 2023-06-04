@@ -32,7 +32,9 @@ const App = () => {
     setEmployees([...employees, newEmployee]);
   };
 
-  const handleUserInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUserInput = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const name = event.target.name;
     const value = event.target.value;
     setEmployee({ ...employee, [name]: value });
