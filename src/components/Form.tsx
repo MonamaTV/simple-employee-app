@@ -1,39 +1,63 @@
 import { ChangeEvent } from "react";
 import Button from "./Button";
 import Input from "./Input";
-import Select from "./Select";
+import { Employee } from "../App";
 
 type FormTypes = {
   handleFormSubmission: (event: React.FormEvent<HTMLFormElement>) => void;
   handleUserInput: (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => void;
+  handleUserImageInput:  (
+    event: ChangeEvent<HTMLInputElement>
+  ) => void;
+  employee: Employee;
 };
 
-const Form = ({ handleFormSubmission, handleUserInput }: FormTypes) => {
+const Form = ({ handleFormSubmission, handleUserInput, employee, handleUserImageInput }: FormTypes) => {
   return (
     <form onSubmit={handleFormSubmission}>
       <Input
+        type={"file"}
+        handleUserInput={handleUserImageInput}
+        name="image"
+      />
+      <Input
+        type={"text"}
+        value={employee.name}
         handleUserInput={handleUserInput}
         placeholder="Employee first name"
         name="name"
       />
       <Input
+        type={"text"}
+       value={employee.surname}
         handleUserInput={handleUserInput}
         placeholder="Employee last name"
         name="surname"
       />
       <Input
+        type={"text"}
+        value={employee.phone}
         handleUserInput={handleUserInput}
-        placeholder="Employee salary"
-        name="salary"
+        placeholder="Employee phone number"
+        name="phone"
       />
-      {/* <Input
+      <Input
+        type={"text"}
+        value={employee.email}
         handleUserInput={handleUserInput}
-        placeholder="Employee gender"
-        name="gender"
-      /> */}
-      <Select name="gender" handleUserInput={handleUserInput} />
+        placeholder="Employee email address"
+        name="email"
+      />
+      <Input
+        type={"text"}
+        value={employee.position}
+        handleUserInput={handleUserInput}
+        placeholder="Employee position"
+        name="position"
+      />
+      
       <Button />
     </form>
   );
