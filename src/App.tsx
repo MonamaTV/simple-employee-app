@@ -1,5 +1,5 @@
 import Form from "./components/Form";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Table from "./components/Table";
 import SearchForm from "./SearchForm";
@@ -17,6 +17,8 @@ export type Employee = {
 const App = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [tempEmployees, setTempEmployees] = useState<Employee[]>([]);
+
+  const ref = useRef<HTMLTableSectionElement | null>(null);
 
   const [editState, setEditState] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
@@ -37,7 +39,7 @@ const App = () => {
     if (employee.surname === "" || employee.surname.length < 2)
       return "Enter a valid surname";
     if (employee.phone === "" || employee.phone.length !== 10)
-      return "Enter a valid phone";
+      return "Enter a valid phone. Must be 10 in length";
     if (employee.email === "" || employee.email.length < 2)
       return "Enter a  valid email";
     if (employee.position === "" || employee.position.length < 2)
@@ -62,6 +64,7 @@ const App = () => {
     setError("");
 
     setEmployees([...employees, newEmployee]);
+    setTempEmployees([...employees, newEmployee]);
 
     // Clear the form
     setEmployee({
@@ -73,7 +76,7 @@ const App = () => {
       phone: "",
       surname: "",
     });
-    
+
     setEditState(false);
   };
 
@@ -97,31 +100,39 @@ const App = () => {
       (employee) => employee.employeeId === employeeId
     );
     if (!editEmployee) return;
-    setEmployees(prevEmployees => prevEmployees.filter(employee => employee.employeeId != employeeId))
+    setEmployees((prevEmployees) =>
+      prevEmployees.filter((employee) => employee.employeeId != employeeId)
+    );
     setEmployee(editEmployee);
   };
 
   const handleUserImageInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.files)
+    event.target.files = null
     if (event.target.files) {
+     try {
       const file = event.target.files[0];
       const imgUrl = URL.createObjectURL(file);
       setEmployee({
         ...employee,
         image: imgUrl,
       });
+     } catch (error) {
+      console.log(error)
+     }
     }
   };
 
   const handleSearchEmployee = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
 
-    if (value.length === 0) {
+    if (value.length === 0 || value === "") {
       setEmployees([...tempEmployees]);
       return;
     }
 
-    setEmployees((prevEmployees) =>
-      prevEmployees.filter((emp) => emp.name.includes(value))
+    setEmployees(
+      tempEmployees.filter((emp) => emp.name.toLocaleLowerCase().includes(value.toLocaleLowerCase()))
     );
   };
 
@@ -144,6 +155,7 @@ const App = () => {
           <h3 className="font-semibold text-xl">Employees</h3>
           <SearchForm handleSearchEmployee={handleSearchEmployee} />
           <Table
+            ref={ref}
             handleDelete={handleEmployeeDelete}
             handleEdit={handleEmployeeEdit}
             employees={employees}
