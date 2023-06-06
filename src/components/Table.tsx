@@ -10,7 +10,7 @@ type TableTypes = {
 
 const Table = forwardRef(function({ employees, handleDelete, handleEdit }: TableTypes, ref: any ){
   return (
-    <table  className="my-2 w-full border-separate border-spacing-y-3 border-spacing-x-0">
+    <table className="text-xs md:text-base my-2 w-full border-separate border-spacing-y-3 border-spacing-x-0">
       <thead className="hidden xl:table-header-group  bg-slate-700  w-full text-center px-5 h-14">
         <tr className=" font-semibold">
           <th className=" font-bold text-s  m"></th>
@@ -29,7 +29,7 @@ const Table = forwardRef(function({ employees, handleDelete, handleEdit }: Table
             className="transition-all delay-400 duration-700 h-10 hover:bg-slate-800 group relative"
             key={employee.employeeId}
           >
-            <td className="text-center flex items-center flex-col"><img className="rounded-full w-12 first-letter:" src={employee.image} alt="avatar"/></td>
+            <td className="hidden text-center md:flex items-center flex-col"><img className="rounded-full w-12 first-letter:" src={employee.image} alt="avatar"/></td>
             <td className="hidden md:table-cell">{employee.employeeId.slice(0, 10) + "..."}</td>
             <td>{employee.name}</td>
             <td>{employee.surname}</td>

@@ -138,8 +138,8 @@ const App = () => {
 
   return (
     <div className="bg-slate-900 flex flex-row py-10 justify-center h-screen w-screen">
-      <div className="lg:container mx-auto flex-col flex lg:flex-row text-white">
-        <div className="w-full lg:w-1/3 my-4 px-4">
+      <div className="container lg:container mx-auto flex-col flex xl:flex-row text-white">
+        <div className="w-full lg:w-2/3 xl:w-1/3 my-4 px-4">
           <h3 className="font-semibold text-xl">
             {editState ? "Edit" : "Add"} employee
           </h3>
@@ -151,7 +151,7 @@ const App = () => {
           />
           {error && <p className="text-red-500">{error}</p>}
         </div>
-        <div className="w-full lg:w-2/3 my-4 px-4 border border-slate-700 shadow p-5">
+        <div className="w-full xl:w-2/3 my-4 px-4 border border-slate-700 shadow p-5">
           <h3 className="font-semibold text-xl">Employees</h3>
           <SearchForm handleSearchEmployee={handleSearchEmployee} />
           <Table
