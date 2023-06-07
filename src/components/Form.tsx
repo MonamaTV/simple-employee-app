@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import Button from "./Button";
 import Input from "./Input";
-import { Employee } from "../services";
+import { Employee } from "../api/services";
 
 type FormTypes = {
   handleFormSubmission: (event: React.FormEvent<HTMLFormElement>) => void;

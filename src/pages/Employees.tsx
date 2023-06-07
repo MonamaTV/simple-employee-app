@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Table from "../components/Table";
-import { Employee, deleteEmployee, getEmployees } from "../services";
+import { Employee, deleteEmployee, getEmployees } from "../api/services";
 import { Link } from "react-router-dom";
-import SearchForm from "../SearchForm";
+import SearchForm from "../components/SearchForm";
 
 const Employees = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);

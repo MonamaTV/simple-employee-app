@@ -4,10 +4,19 @@
       "id": "915acbcd-dfba-4f9b-b422-dc9ab28dfaca",
       "name": "Thanos",
       "email": "mphochuene42@gmail.com",
-      "image": "blob:http://localhost:5173/6af6f29f-690c-47a5-8d46-2453b21f9be3",
+      "image": "blob:http://localhost:5173/84d50076-f8a8-4568-acb3-d1522ab45250",
       "position": "God",
       "phone": "9083202121",
       "surname": "Marvel"
+    },
+    {
+      "id": "972a781e-5095-4a57-93b8-ee8be8590b07",
+      "name": "Echo",
+      "email": "mphochuene42@gmail.com",
+      "image": "blob:http://localhost:5173/0985a3f8-50f3-4d99-a968-74330c1622ca",
+      "position": "djgpojfd",
+      "phone": "9083202121",
+      "surname": "Chamber"
     }
   ]
 }

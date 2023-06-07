@@ -6,9 +6,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Home from "./pages/Home.tsx";
-import AddEmployee from "./pages/add.tsx";
-import Employees from "./pages/employees.tsx";
 import EditEmployee from "./pages/Edit.tsx";
+import AddEmployee from "./pages/Add.tsx";
+import Employees from "./pages/Employees.tsx";
 
 const router = createBrowserRouter([
   {

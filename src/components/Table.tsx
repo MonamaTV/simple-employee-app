@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { Link } from "react-router-dom";
-import { Employee } from "../services";
+import { Employee } from "../api/services";
 
 type TableTypes = {
   employees: Employee[];

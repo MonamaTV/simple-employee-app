@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Form from "../components/Form";
-import { Employee, getEmployee, updateEmployee } from "../services";
+import { Employee, getEmployee, updateEmployee } from "../api/services";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 const EditEmployee = () => {
