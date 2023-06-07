@@ -1,14 +1,17 @@
 import { forwardRef } from "react";
 import { Employee } from "../App";
+import { Link } from "react-router-dom";
 
 type TableTypes = {
   employees: Employee[];
-  handleEdit: (id: string) => void;
+  handleEdit?: (id: string) => void;
   handleDelete: (id: string) => void;
-}
+};
 
-
-const Table = forwardRef(function({ employees, handleDelete, handleEdit }: TableTypes, ref: any ){
+const Table = forwardRef(function (
+  { employees, handleDelete, handleEdit }: TableTypes,
+  ref: any
+) {
   return (
     <table className="text-xs md:text-base my-2 w-full border-separate border-spacing-y-3 border-spacing-x-0">
       <thead className="hidden xl:table-header-group  bg-slate-700  w-full text-center px-5 h-14">
@@ -23,29 +26,43 @@ const Table = forwardRef(function({ employees, handleDelete, handleEdit }: Table
           <th className=" font-bold text-sm">Action</th>
         </tr>
       </thead>
-      <tbody ref={ref}   className="text-center px-5  [&>*:nth-child(even)]:bg-slate-800" >
+      <tbody
+        ref={ref}
+        className="text-center px-5  [&>*:nth-child(even)]:bg-slate-800"
+      >
         {employees.map((employee) => (
           <tr
             className="transition-all delay-400 duration-700 h-10 hover:bg-slate-800 group relative"
-            key={employee.employeeId}
+            key={employee.id}
           >
-            <td className="hidden text-center md:flex items-center flex-col"><img className="rounded-full w-12 first-letter:" src={employee.image} alt="avatar"/></td>
-            <td className="hidden md:table-cell">{employee.employeeId.slice(0, 10) + "..."}</td>
+            <td className="hidden text-center md:flex items-center flex-col">
+              <img
+                className="rounded-full w-12 first-letter:"
+                src={employee.image}
+                alt="avatar"
+              />
+            </td>
+            <td className="hidden md:table-cell">
+              {employee.id.slice(0, 10) + "..."}
+            </td>
             <td>{employee.name}</td>
             <td>{employee.surname}</td>
             <td>{employee.phone}</td>
-            <td >
-              {employee.email}
-            </td>
-            <td >
-              {employee.position}
-            </td>
-            <td> 
-              <div className="flex flex-row justify-center space-x-3" >
-                <button onClick={() => handleEdit(employee.employeeId)} className=" bg-green-600 px-3 py-1 text-xs group-hover:display">
+            <td>{employee.email}</td>
+            <td>{employee.position}</td>
+            <td>
+              <div className="flex flex-row justify-center space-x-3">
+                <Link
+                  to={"/edit/" + employee.id}
+                  // onClick={() => handleEdit(employee.employeeId)}
+                  className=" bg-green-600 px-3 py-1 text-xs group-hover:display"
+                >
                   Edit
-                </button>
-                <button onClick={() => handleDelete(employee.employeeId)} className=" bg-red-600 px-3 py-1 text-xs  group-hover:display">
+                </Link>
+                <button
+                  onClick={() => handleDelete(employee.id)}
+                  className=" bg-red-600 px-3 py-1 text-xs  group-hover:display"
+                >
                   Delete
                 </button>
               </div>

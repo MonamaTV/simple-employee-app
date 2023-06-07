@@ -1,0 +1,22 @@
+{
+  "employees": [
+    {
+      "id": "99a3abde-9aa0-4962-89fa-604e12150b11",
+      "name": "Vincent",
+      "email": "mphochuene42@gmail.com",
+      "image": "blob:http://localhost:5173/abdff8da-238f-4c13-9a63-581486a7e446",
+      "position": "God",
+      "phone": "9083202121",
+      "surname": "Monama"
+    },
+    {
+      "id": "32130dc9-b085-4f7b-a52e-d36a772c7160",
+      "name": "Tadima",
+      "email": "mphochuene42@gmail.com",
+      "image": "blob:http://localhost:5173/f6753255-7a92-4f02-bec7-444d6d4995e9",
+      "position": "CEO",
+      "phone": "9083202121",
+      "surname": "Monama"
+    }
+  ]
+}

@@ -1,11 +1,13 @@
 import Form from "./components/Form";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Table from "./components/Table";
 import SearchForm from "./SearchForm";
+import { getEmployees } from "./services";
 
 export type Employee = {
-  employeeId: string;
+
+  id: string;
   name: string;
   surname: string;
   email: string;
@@ -24,7 +26,7 @@ const App = () => {
   const [error, setError] = useState<string>("");
 
   const [employee, setEmployee] = useState<Employee>({
-    employeeId: "",
+    id: "",
     name: "",
     email: "",
     image: "",
@@ -49,11 +51,11 @@ const App = () => {
   const handleFormSubmission = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const id = employee.employeeId || uuidv4();
+    const id = employee.id || uuidv4();
 
     const newEmployee: Employee = {
       ...employee,
-      employeeId: id,
+      id: id,
     };
 
     const isValid = validateUser(employee);
@@ -68,7 +70,7 @@ const App = () => {
 
     // Clear the form
     setEmployee({
-      employeeId: "",
+      id: "",
       name: "",
       email: "",
       image: "",
@@ -77,7 +79,6 @@ const App = () => {
       surname: "",
     });
 
-    setEditState(false);
   };
 
   const handleUserInput = (
@@ -90,25 +91,23 @@ const App = () => {
 
   const handleEmployeeDelete = (employeeId: string) => {
     setEmployees((prevEmployees) =>
-      prevEmployees.filter((employee) => employee.employeeId !== employeeId)
+      prevEmployees.filter((employee) => employee.id !== employeeId)
     );
   };
 
   const handleEmployeeEdit = (employeeId: string) => {
     setEditState(true);
     const editEmployee = employees.find(
-      (employee) => employee.employeeId === employeeId
+      (employee) => employee.id === employeeId
     );
     if (!editEmployee) return;
     setEmployees((prevEmployees) =>
-      prevEmployees.filter((employee) => employee.employeeId != employeeId)
+      prevEmployees.filter((employee) => employee.id != employeeId)
     );
     setEmployee(editEmployee);
   };
 
   const handleUserImageInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.files)
-    event.target.files = null
     if (event.target.files) {
      try {
       const file = event.target.files[0];
@@ -135,6 +134,19 @@ const App = () => {
       tempEmployees.filter((emp) => emp.name.toLocaleLowerCase().includes(value.toLocaleLowerCase()))
     );
   };
+
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      try {
+        const employees = await getEmployees();
+        setEmployees(employees)
+      } catch (error) {
+        setEmployees([])
+      }
+    }
+
+    fetchEmployees()
+  }, []);
 
   return (
     <div className="bg-slate-900 flex flex-row py-10 justify-center h-screen w-screen">
