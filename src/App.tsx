@@ -169,7 +169,6 @@ const App = () => {
           <Table
             ref={ref}
             handleDelete={handleEmployeeDelete}
-            handleEdit={handleEmployeeEdit}
             employees={employees}
           />
         </div>

@@ -52,7 +52,7 @@ const Employees = () => {
         <Link to="/" className="text-red-400 px-3 py-1 left-0">
           Go Back
         </Link>
-        <div className="text-white w-full my-4 px-4 border border-slate-700 shadow p-5">
+        <div className="text-white w-full my-4 px-2 md:px-4 p-5 border border-slate-700 shadow ">
         <h3 className="font-semibold text-2xl text-white">Employees</h3>
           <SearchForm handleSearchEmployee={handleSearchEmployee} />
           <Table employees={employees} handleDelete={handleDeleteEmployee} />

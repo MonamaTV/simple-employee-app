@@ -4,12 +4,11 @@ import { Link } from "react-router-dom";
 
 type TableTypes = {
   employees: Employee[];
-  handleEdit?: (id: string) => void;
   handleDelete: (id: string) => void;
 };
 
 const Table = forwardRef(function (
-  { employees, handleDelete, handleEdit }: TableTypes,
+  { employees, handleDelete }: TableTypes,
   ref: any
 ) {
   return (
@@ -30,7 +29,7 @@ const Table = forwardRef(function (
         ref={ref}
         className="text-center px-5  [&>*:nth-child(even)]:bg-slate-800"
       >
-        {employees.map((employee) => (
+        {employees.length !== 0 ? employees.map((employee) => (
           <tr
             className="transition-all delay-400 duration-700 h-10 hover:bg-slate-800 group relative"
             key={employee.id}
@@ -50,7 +49,7 @@ const Table = forwardRef(function (
             <td>{employee.phone}</td>
             <td>{employee.email}</td>
             <td>{employee.position}</td>
-            <td>
+            <td className="hidden lg:table-cell">
               <div className="flex flex-row justify-center space-x-3">
                 <Link
                   to={"/edit/" + employee.id}
@@ -68,7 +67,7 @@ const Table = forwardRef(function (
               </div>
             </td>
           </tr>
-        ))}
+        )) : <h1>No employees...</h1>}
       </tbody>
     </table>
   );

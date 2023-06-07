@@ -21,6 +21,7 @@ const Form = ({ handleFormSubmission, handleUserInput, employee, handleUserImage
         type={"file"}
         handleUserInput={handleUserImageInput}
         name="image"
+        accept="image/png, image/gif, image/jpeg"
       />
       <Input
         type={"text"}
