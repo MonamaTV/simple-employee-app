@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Employee } from "../App";
-import { v4 as uuidv4 } from "uuid";
 import Form from "../components/Form";
-import { getEmployee, postEmployee, updateEmployee } from "../services";
+import { Employee, getEmployee, updateEmployee } from "../services";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 const EditEmployee = () => {

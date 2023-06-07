@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Table from "../components/Table";
-import { deleteEmployee, getEmployees } from "../services";
-import { Employee } from "../App";
+import { Employee, deleteEmployee, getEmployees } from "../services";
 import { Link } from "react-router-dom";
 import SearchForm from "../SearchForm";
 

@@ -1,4 +1,13 @@
-import { Employee } from "./App";
+export type Employee = {
+
+    id: string;
+    name: string;
+    surname: string;
+    email: string;
+    image: string;
+    phone: string;
+    position: string;
+  };
 
 export const postEmployee = async (employee: Employee) => {
   const response = await fetch("http://localhost:3000/employees", {

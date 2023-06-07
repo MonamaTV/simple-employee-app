@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Employee } from "../App";
 import { v4 as uuidv4 } from "uuid";
 import Form from "../components/Form";
-import { postEmployee } from "../services";
+import { Employee, postEmployee } from "../services";
 import { Link, useNavigate } from "react-router-dom";
 
 const AddEmployee = () => {
