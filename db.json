@@ -1,22 +1,22 @@
 {
   "employees": [
     {
-      "id": "915acbcd-dfba-4f9b-b422-dc9ab28dfaca",
-      "name": "Thanos",
+      "id": "0cb3142b-e781-4ab0-a56a-5b5d3ce6a078",
+      "name": "Tadima",
       "email": "mphochuene42@gmail.com",
-      "image": "blob:http://localhost:5173/84d50076-f8a8-4568-acb3-d1522ab45250",
-      "position": "God",
+      "image": "blob:http://localhost:5173/275a49aa-d3bc-4016-8957-120b79526a3b",
+      "position": "CEO",
       "phone": "9083202121",
-      "surname": "Marvel"
+      "surname": "Monama"
     },
     {
-      "id": "972a781e-5095-4a57-93b8-ee8be8590b07",
-      "name": "Echo",
+      "id": "41f98822-c752-4f2f-9f0b-bd00d80fc23d",
+      "name": "Thanos",
       "email": "mphochuene42@gmail.com",
-      "image": "blob:http://localhost:5173/0985a3f8-50f3-4d99-a968-74330c1622ca",
-      "position": "djgpojfd",
-      "phone": "9083202121",
-      "surname": "Chamber"
+      "image": "blob:http://localhost:5173/dc71dda7-8628-4ed5-8b73-c4c13747c0a0",
+      "position": "God",
+      "phone": "1234567890",
+      "surname": "Avenger"
     }
   ]
 }

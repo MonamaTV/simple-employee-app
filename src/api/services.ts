@@ -1,5 +1,4 @@
 export type Employee = {
-
     id: string;
     name: string;
     surname: string;
@@ -23,6 +22,16 @@ export const postEmployee = async (employee: Employee) => {
 
 export const getEmployees = async () => {
   const response = await fetch("http://localhost:3000/employees", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await response.json();
+  return data;
+};
+export const searchEmployees = async (keyword: string) => {
+  const response = await fetch(`http://localhost:3000/employees?name=${keyword}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

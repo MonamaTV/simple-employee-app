@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Table from "../components/Table";
-import { Employee, deleteEmployee, getEmployees } from "../api/services";
+import { Employee, deleteEmployee, getEmployees, searchEmployees } from "../api/services";
 import { Link } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
+import useDebounce from "../hooks/debounce";
 
 const Employees = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
+  const [search, setSearch] = useState<string>("")
+  const debouncedValue = useDebounce<string>(search, 500);
+
+  const handleSeachInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearch(value);
+  }
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
@@ -19,6 +27,19 @@ const Employees = () => {
     fetchEmployees();
   }, []);
 
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      try {
+        const employees = await searchEmployees(search);
+        setEmployees(employees);
+      } catch (error) {
+        setEmployees([]);
+      }
+    };
+
+    search && fetchEmployees();
+  }, [debouncedValue]);
+
 
   const handleDeleteEmployee = async (employeeId: string) => {
     try {
@@ -31,19 +52,10 @@ const Employees = () => {
         }
 
     } catch (error) {
-        
+        alert("Failed to delete employee. Try again")
     }
   }
 
-  const handleSearchEmployee = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-
-    setEmployees(
-      employees.filter((emp) =>
-        emp.name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
-      )
-    );
-  };
 
   return (
     <div className="relative bg-slate-900 flex flex-col py-10 items-center justify-center h-screen w-screen">
@@ -53,7 +65,7 @@ const Employees = () => {
         </Link>
         <div className="text-white w-full my-4 px-2 md:px-4 p-5 border border-slate-700 shadow ">
         <h3 className="font-semibold text-2xl text-white">Employees</h3>
-          <SearchForm handleSearchEmployee={handleSearchEmployee} />
+          <SearchForm handleSearchEmployee={handleSeachInput} />
           <Table employees={employees} handleDelete={handleDeleteEmployee} />
         </div>
       </div>
