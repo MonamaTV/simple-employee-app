@@ -1,22 +1,3 @@
 {
-  "employees": [
-    {
-      "id": "0cb3142b-e781-4ab0-a56a-5b5d3ce6a078",
-      "name": "Tadima",
-      "email": "mphochuene42@gmail.com",
-      "image": "blob:http://localhost:5173/275a49aa-d3bc-4016-8957-120b79526a3b",
-      "position": "CEO",
-      "phone": "9083202121",
-      "surname": "Monama"
-    },
-    {
-      "id": "41f98822-c752-4f2f-9f0b-bd00d80fc23d",
-      "name": "Thanos",
-      "email": "mphochuene42@gmail.com",
-      "image": "blob:http://localhost:5173/dc71dda7-8628-4ed5-8b73-c4c13747c0a0",
-      "position": "God",
-      "phone": "1234567890",
-      "surname": "Avenger"
-    }
-  ]
+  "employees": []
 }
