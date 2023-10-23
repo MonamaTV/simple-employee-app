@@ -1,24 +1,41 @@
 import React, { useEffect, useState } from "react";
 import Table from "../components/Table";
-import { Employee, deleteEmployee, getEmployees, searchEmployees } from "../api/services";
+import {
+  Employee,
+  deleteEmployee,
+  getEmployees,
+  searchEmployees,
+} from "../api/services";
 import { Link } from "react-router-dom";
 import SearchForm from "../components/SearchForm";
 import useDebounce from "../hooks/debounce";
+import { auth } from "../api/firebase";
 
 const Employees = () => {
   const [employees, setEmployees] = useState<Employee[]>([]);
-  const [search, setSearch] = useState<string>("")
-  const debouncedValue = useDebounce<string>(search, 500);
+  const [search, setSearch] = useState<string>("");
+  const [token, setToken] = useState<any>();
 
   const handleSeachInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setSearch(value);
-  }
+  };
+
+  useEffect(() => {
+    auth.onIdTokenChanged((user) => {
+      if (user) {
+        setToken(user?.getIdToken());
+      }
+    });
+  });
+
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const employees = await getEmployees();
-        setEmployees(employees);
+        console.log(token);
+        const employees = await getEmployees(token);
+        console.log(employees.data);
+        setEmployees(employees.data);
       } catch (error) {
         setEmployees([]);
       }
@@ -27,35 +44,32 @@ const Employees = () => {
     fetchEmployees();
   }, []);
 
-  useEffect(() => {
-    const fetchEmployees = async () => {
-      try {
-        const employees = await searchEmployees(search);
-        setEmployees(employees);
-      } catch (error) {
-        setEmployees([]);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchEmployees = async () => {
+  //     try {
+  //       const employees = await searchEmployees(search);
+  //       setEmployees(employees);
+  //     } catch (error) {
+  //       setEmployees([]);
+  //     }
+  //   };
 
-    search && fetchEmployees();
-  }, [debouncedValue]);
-
+  //   search && fetchEmployees();
+  // }, [debouncedValue]);
 
   const handleDeleteEmployee = async (employeeId: string) => {
     try {
-        const response = await deleteEmployee(employeeId);
-        // If successful, delete it from the UI
-        if(response) {
-            setEmployees((prevEmployees) =>
-            prevEmployees.filter((employee) => employee.id !== employeeId)
-          );
-        }
-
+      const response = await deleteEmployee(employeeId);
+      // If successful, delete it from the UI
+      if (response) {
+        setEmployees((prevEmployees) =>
+          prevEmployees.filter((employee) => employee.id !== employeeId)
+        );
+      }
     } catch (error) {
-        alert("Failed to delete employee. Try again")
+      alert("Failed to delete employee. Try again");
     }
-  }
-
+  };
 
   return (
     <div className="relative bg-slate-900 flex flex-col py-10 items-center justify-center h-screen w-screen">
@@ -64,7 +78,7 @@ const Employees = () => {
           Go Back
         </Link>
         <div className="text-white w-full my-4 px-2 md:px-4 p-5 border border-slate-700 shadow ">
-        <h3 className="font-semibold text-2xl text-white">Employees</h3>
+          <h3 className="font-semibold text-2xl text-white">Employees</h3>
           <SearchForm handleSearchEmployee={handleSeachInput} />
           <Table employees={employees} handleDelete={handleDeleteEmployee} />
         </div>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import Form from "../components/Form";
 import { Employee, postEmployee } from "../api/services";
 import { Link, useNavigate } from "react-router-dom";
@@ -22,11 +21,8 @@ const AddEmployee = () => {
   ) => {
     event.preventDefault();
 
-    const id = employee.id || uuidv4();
-
     const newEmployee: Employee = {
       ...employee,
-      id: id,
     };
 
     const isValid = validateUser(employee);
@@ -43,19 +39,20 @@ const AddEmployee = () => {
       }
       navigation("/employees");
     } catch (error) {
+      console.log(error);
       setError("Something went wrong! Please try again");
     }
 
     // Clear the form
-    setEmployee({
-      id: "",
-      name: "",
-      email: "",
-      image: "",
-      position: "",
-      phone: "",
-      surname: "",
-    });
+    // setEmployee({
+    //   id: "",
+    //   name: "",
+    //   email: "",
+    //   image: "",
+    //   position: "",
+    //   phone: "",
+    //   surname: "",
+    // });
   };
 
   const handleUserInput = (

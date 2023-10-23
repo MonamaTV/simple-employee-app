@@ -9,7 +9,7 @@ export type Employee = {
   };
 
 export const postEmployee = async (employee: Employee) => {
-  const response = await fetch("http://localhost:3000/employees", {
+  const response = await fetch("http://localhost:8000/employees", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -20,18 +20,19 @@ export const postEmployee = async (employee: Employee) => {
   return data;
 };
 
-export const getEmployees = async () => {
-  const response = await fetch("http://localhost:3000/employees", {
+export const getEmployees = async (token: string) => {
+  const response = await fetch("http://localhost:8000/employees", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+      "Authorization": "Bearer " + token
     },
   });
   const data = await response.json();
   return data;
 };
 export const searchEmployees = async (keyword: string) => {
-  const response = await fetch(`http://localhost:3000/employees?name=${keyword}`, {
+  const response = await fetch(`http://localhost:8000/employees?name=${keyword}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -43,7 +44,7 @@ export const searchEmployees = async (keyword: string) => {
 
 export const getEmployee = async (employeeId: string | 
     undefined) => {
-    const response = await fetch(`http://localhost:3000/employees/${employeeId}`, {
+    const response = await fetch(`http://localhost:8000/employees/${employeeId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -54,13 +55,13 @@ export const getEmployee = async (employeeId: string |
   };
 
 export const updateEmployee = async (
-  employeeId: string,
+  employeeId: string | undefined,
   employee: Employee
 ) => {
   const response = await fetch(
-    `http://localhost:3000/employees/${employeeId}`,
+    `http://localhost:8000/employees/${employeeId}`,
     {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
@@ -72,7 +73,7 @@ export const updateEmployee = async (
 };
 export const deleteEmployee = async (employeeId: string) => {
   const response = await fetch(
-    `http://localhost:3000/employees/${employeeId}`,
+    `http://localhost:8000/employees/${employeeId}`,
     {
       method: "DELETE",
       headers: {

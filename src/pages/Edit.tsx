@@ -22,9 +22,7 @@ const EditEmployee = () => {
   ) => {
     event.preventDefault();
 
-    
-
-    const newEmployee: Employee = {
+    const newEmployeeDetails: Employee = {
       ...employee,
       id: employee.id,
     };
@@ -37,12 +35,13 @@ const EditEmployee = () => {
     setError("");
 
     try {
-      const response = await updateEmployee(employee.id, newEmployee);
+      const response = await updateEmployee(employeeId, newEmployeeDetails);
       if (!response) {
         setError("Failed to update employee");
       }
       navigation("/employees");
     } catch (error) {
+      console.log(error);
       setError("Something went wrong! Please try again");
     }
 
@@ -94,14 +93,13 @@ const EditEmployee = () => {
       return "Enter a valid position";
   };
 
-
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
         const employee = await getEmployee(employeeId);
-        setEmployee(employee);
-      } catch (error) {
-      }
+        console.log(employee);
+        setEmployee(employee.data);
+      } catch (error) {}
     };
 
     fetchEmployee();
@@ -110,17 +108,19 @@ const EditEmployee = () => {
   return (
     <div className="bg-slate-900 flex flex-col py-10 items-center justify-center h-screen w-screen">
       <div className="w-full lg:w-2/3 xl:w-1/3">
-      <Link to="/employees" className="text-red-400 px-3 py-1">Go Back</Link>
-      <div className="border border-slate-700 shadow p-5 w-full my-4 px-4">
-        <h3 className="font-semibold text-2xl text-white">Update employee</h3>
-        <Form
-          handleUserImageInput={handleUserImageInput}
-          handleFormSubmission={handleFormSubmission}
-          handleUserInput={handleUserInput}
-          employee={employee}
-        />
-        {error && <p className="text-red-500">{error}</p>}
-      </div>
+        <Link to="/employees" className="text-red-400 px-3 py-1">
+          Go Back
+        </Link>
+        <div className="border border-slate-700 shadow p-5 w-full my-4 px-4">
+          <h3 className="font-semibold text-2xl text-white">Update employee</h3>
+          <Form
+            handleUserImageInput={handleUserImageInput}
+            handleFormSubmission={handleFormSubmission}
+            handleUserInput={handleUserInput}
+            employee={employee}
+          />
+          {error && <p className="text-red-500">{error}</p>}
+        </div>
       </div>
     </div>
   );
