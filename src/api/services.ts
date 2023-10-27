@@ -8,11 +8,12 @@ export type Employee = {
     position: string;
   };
 
-export const postEmployee = async (employee: Employee) => {
+export const postEmployee = async (employee: Employee, token: string | null) => {
   const response = await fetch("http://localhost:8000/employees", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "authorization": "Bearer " + token
     },
     body: JSON.stringify(employee),
   });
@@ -31,11 +32,12 @@ export const getEmployees = async (token: string) => {
   const data = await response.json();
   return data;
 };
-export const searchEmployees = async (keyword: string) => {
+export const searchEmployees = async (keyword: string, token: string) => {
   const response = await fetch(`http://localhost:8000/employees?name=${keyword}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
+       "authorization": "Bearer " + token
     },
   });
   const data = await response.json();
@@ -43,11 +45,12 @@ export const searchEmployees = async (keyword: string) => {
 };
 
 export const getEmployee = async (employeeId: string | 
-    undefined) => {
+    undefined, token: string) => {
     const response = await fetch(`http://localhost:8000/employees/${employeeId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+         "authorization": "Bearer " + token
       },
     });
     const data = await response.json();
@@ -56,7 +59,8 @@ export const getEmployee = async (employeeId: string |
 
 export const updateEmployee = async (
   employeeId: string | undefined,
-  employee: Employee
+  employee: Employee,
+  token: string
 ) => {
   const response = await fetch(
     `http://localhost:8000/employees/${employeeId}`,
@@ -64,6 +68,7 @@ export const updateEmployee = async (
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
+         "authorization": "Bearer " + token
       },
       body: JSON.stringify(employee),
     }
@@ -71,13 +76,14 @@ export const updateEmployee = async (
   const data = await response.json();
   return data;
 };
-export const deleteEmployee = async (employeeId: string) => {
+export const deleteEmployee = async (employeeId: string, token: string | null) => {
   const response = await fetch(
     `http://localhost:8000/employees/${employeeId}`,
     {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+         "authorization": "Bearer " + token
       },
     }
   );

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Form from "../components/Form";
 import { Employee, postEmployee } from "../api/services";
 import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../api/firebase";
 
 const AddEmployee = () => {
   const [error, setError] = useState<string>("");
@@ -33,11 +34,14 @@ const AddEmployee = () => {
     setError("");
 
     try {
-      const response = await postEmployee(newEmployee);
+      const token = await auth.currentUser?.getIdToken();
+      console.log(token);
+      if (!token) return;
+      const response = await postEmployee(newEmployee, token);
       if (!response) {
         setError("Failed to add employee");
       }
-      navigation("/employees");
+      navigation("/admin");
     } catch (error) {
       console.log(error);
       setError("Something went wrong! Please try again");
@@ -94,7 +98,7 @@ const AddEmployee = () => {
   return (
     <div className="bg-slate-900 flex flex-col py-10 items-center justify-center h-screen w-screen">
       <div className="w-full lg:w-2/3 xl:w-1/3">
-        <Link to="/" className="text-red-600 px-3 py-1 left-0">
+        <Link to="/admin" className="text-red-600 px-3 py-1 left-0">
           Go Back
         </Link>
         <div className="border border-slate-700 shadow p-5 w-full my-4 px-4">

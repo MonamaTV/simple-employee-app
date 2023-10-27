@@ -29,45 +29,47 @@ const Table = forwardRef(function (
         ref={ref}
         className="text-center px-5  [&>*:nth-child(even)]:bg-slate-800"
       >
-        {employees.length !== 0 ? employees.map((employee) => (
-          <tr
-            className="transition-all delay-400 duration-700 h-10 hover:bg-slate-800 group relative"
-            key={employee.id}
-          >
-            <td className="hidden text-center md:flex items-center flex-col">
-              <img
-                className="rounded-full w-12 first-letter:"
-                src={employee.image}
-                alt="avatar"
-              />
-            </td>
-            <td className="hidden md:table-cell">
-              {employee.id.slice(0, 10) + "..."}
-            </td>
-            <td>{employee.name}</td>
-            <td>{employee.surname}</td>
-            <td>{employee.phone}</td>
-            <td>{employee.email}</td>
-            <td>{employee.position}</td>
-            <td className="hidden lg:table-cell">
-              <div className="flex flex-row justify-center space-x-3">
-                <Link
-                  to={"/edit/" + employee.id}
-                  // onClick={() => handleEdit(employee.employeeId)}
-                  className=" bg-green-600 px-3 py-1 text-xs group-hover:display"
-                >
-                  Edit
-                </Link>
-                <button
-                  onClick={() => handleDelete(employee.id)}
-                  className=" bg-red-600 px-3 py-1 text-xs  group-hover:display"
-                >
-                  Delete
-                </button>
-              </div>
-            </td>
-          </tr>
-        )) : <h1>No employees...</h1>}
+        {employees.length !== 0
+          ? employees.map((employee) => (
+              <tr
+                className="transition-all delay-400 duration-700 h-10 hover:bg-slate-800 group relative"
+                key={employee.id}
+              >
+                <td className="hidden text-center md:flex items-center flex-col">
+                  <img
+                    className="rounded-full w-12 first-letter:"
+                    src={employee.image}
+                    alt="avatar"
+                  />
+                </td>
+                <td className="hidden md:table-cell">
+                  {employee.id.slice(0, 10) + "..."}
+                </td>
+                <td>{employee.name}</td>
+                <td>{employee.surname}</td>
+                <td>{employee.phone}</td>
+                <td>{employee.email}</td>
+                <td>{employee.position}</td>
+                <td className="hidden lg:table-cell">
+                  <div className="flex flex-row justify-center space-x-3">
+                    <Link
+                      to={"/edit/" + employee.id}
+                      // onClick={() => handleEdit(employee.employeeId)}
+                      className=" bg-green-600 px-3 py-1 text-xs group-hover:display"
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      onClick={() => handleDelete(employee.id)}
+                      className=" bg-red-600 px-3 py-1 text-xs  group-hover:display"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))
+          : null}
       </tbody>
     </table>
   );

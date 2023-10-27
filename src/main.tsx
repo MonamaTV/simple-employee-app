@@ -8,31 +8,43 @@ import AddEmployee from "./pages/Add.tsx";
 import Employees from "./pages/Employees.tsx";
 import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
+import { AuthProvider } from "./hooks/AuthProvider.tsx";
+import Nav from "./components/Nav.tsx";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/add",
-    element: <AddEmployee />,
-  },
-  {
-    path: "/edit/:employeeId",
-    element: <EditEmployee />,
-  },
-  {
-    path: "/employees",
-    element: <Employees />,
-  },
   {
     path: "/login",
     element: <Login />,
   },
   {
+    path: "/",
+    element: <Home />,
+  },
+  {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/admin",
+    element: (
+      <AuthProvider>
+        <Nav />
+      </AuthProvider>
+    ),
+    children: [
+      {
+        path: "/admin/",
+        element: <Employees />,
+      },
+      {
+        path: "/admin/add",
+        element: <AddEmployee />,
+      },
+      {
+        path: "/admin/edit/:employeeId",
+        element: <EditEmployee />,
+      },
+    ],
   },
 ]);
 

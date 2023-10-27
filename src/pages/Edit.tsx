@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Form from "../components/Form";
 import { Employee, getEmployee, updateEmployee } from "../api/services";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { auth } from "../api/firebase";
 
 const EditEmployee = () => {
   const [error, setError] = useState<string>("");
@@ -35,26 +36,33 @@ const EditEmployee = () => {
     setError("");
 
     try {
-      const response = await updateEmployee(employeeId, newEmployeeDetails);
+      const token = await auth.currentUser?.getIdToken();
+      console.log(token);
+      if (!token) return;
+      const response = await updateEmployee(
+        employeeId,
+        newEmployeeDetails,
+        token
+      );
       if (!response) {
         setError("Failed to update employee");
       }
-      navigation("/employees");
+      navigation("/admin");
     } catch (error) {
       console.log(error);
       setError("Something went wrong! Please try again");
     }
 
-    // Clear the form
-    setEmployee({
-      id: "",
-      name: "",
-      email: "",
-      image: "",
-      position: "",
-      phone: "",
-      surname: "",
-    });
+    // // Clear the form
+    // setEmployee({
+    //   id: "",
+    //   name: "",
+    //   email: "",
+    //   image: "",
+    //   position: "",
+    //   phone: "",
+    //   surname: "",
+    // });
   };
 
   const handleUserInput = (
@@ -96,8 +104,10 @@ const EditEmployee = () => {
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
-        const employee = await getEmployee(employeeId);
-        console.log(employee);
+        const token = await auth.currentUser?.getIdToken();
+        console.log(token);
+        if (!token) return;
+        const employee = await getEmployee(employeeId, token);
         setEmployee(employee.data);
       } catch (error) {}
     };
@@ -108,7 +118,7 @@ const EditEmployee = () => {
   return (
     <div className="bg-slate-900 flex flex-col py-10 items-center justify-center h-screen w-screen">
       <div className="w-full lg:w-2/3 xl:w-1/3">
-        <Link to="/employees" className="text-red-400 px-3 py-1">
+        <Link to="/admin" className="text-red-400 px-3 py-1">
           Go Back
         </Link>
         <div className="border border-slate-700 shadow p-5 w-full my-4 px-4">

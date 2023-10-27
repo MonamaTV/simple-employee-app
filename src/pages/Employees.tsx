@@ -22,19 +22,12 @@ const Employees = () => {
   };
 
   useEffect(() => {
-    auth.onIdTokenChanged((user) => {
-      if (user) {
-        setToken(user?.getIdToken());
-      }
-    });
-  });
-
-  useEffect(() => {
     const fetchEmployees = async () => {
       try {
+        const token = await auth.currentUser?.getIdToken();
         console.log(token);
+        if (!token) return;
         const employees = await getEmployees(token);
-        console.log(employees.data);
         setEmployees(employees.data);
       } catch (error) {
         setEmployees([]);
@@ -59,7 +52,10 @@ const Employees = () => {
 
   const handleDeleteEmployee = async (employeeId: string) => {
     try {
-      const response = await deleteEmployee(employeeId);
+      const token = await auth.currentUser?.getIdToken();
+      console.log(token);
+      if (!token) return;
+      const response = await deleteEmployee(employeeId, token);
       // If successful, delete it from the UI
       if (response) {
         setEmployees((prevEmployees) =>
@@ -74,7 +70,7 @@ const Employees = () => {
   return (
     <div className="relative bg-slate-900 flex flex-col py-10 items-center justify-center h-screen w-screen">
       <div className="w-full xl:w-2/3">
-        <Link to="/" className="text-red-400 px-3 py-1 left-0">
+        <Link to="/admin" className="text-red-400 px-3 py-1 left-0">
           Go Back
         </Link>
         <div className="text-white w-full my-4 px-2 md:px-4 p-5 border border-slate-700 shadow ">
