@@ -48,15 +48,15 @@ const AddEmployee = () => {
     }
 
     // Clear the form
-    // setEmployee({
-    //   id: "",
-    //   name: "",
-    //   email: "",
-    //   image: "",
-    //   position: "",
-    //   phone: "",
-    //   surname: "",
-    // });
+    setEmployee({
+      id: "",
+      name: "",
+      email: "",
+      image: "",
+      position: "",
+      phone: "",
+      surname: "",
+    });
   };
 
   const handleUserInput = (
