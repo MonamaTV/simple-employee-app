@@ -37,19 +37,6 @@ const Employees = () => {
     fetchEmployees();
   }, []);
 
-  // useEffect(() => {
-  //   const fetchEmployees = async () => {
-  //     try {
-  //       const employees = await searchEmployees(search);
-  //       setEmployees(employees);
-  //     } catch (error) {
-  //       setEmployees([]);
-  //     }
-  //   };
-
-  //   search && fetchEmployees();
-  // }, [debouncedValue]);
-
   const handleDeleteEmployee = async (employeeId: string) => {
     try {
       const token = await auth.currentUser?.getIdToken();

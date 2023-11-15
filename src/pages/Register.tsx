@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { auth } from "../api/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
+import { sendWelcomeEmail } from "../api/email";
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -37,6 +38,12 @@ const Register = () => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, user.email, user.password);
+      const token = await auth.currentUser?.getIdToken();
+      if (token) {
+        const sent = await sendWelcomeEmail(user.email, token);
+        console.log(sent);
+        alert("Check your email...");
+      }
       navigation("/admin");
     } catch (error) {
       console.log(error);
